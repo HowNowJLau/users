@@ -21,8 +21,39 @@ class User:
         return user_list
 
     @classmethod
+    def get_one(cls, data):
+        query = """
+        SELECT id, first_name, last_name, email, created_at, updated_at FROM users WHERE id = %(id)s;
+        """
+        # query = """
+        # SELECT id, first_name, last_name, email, DATE_FORMAT(created_at, '%M %e, %Y') AS created_at, 
+        # DATE_FORMAT(updated_at, '%M %e, %Y at %r') AS updated_at FROM users WHERE id = %(id)s;
+        # """
+        results = connectToMySQL('users_schema').query_db(query, data)
+        print(results)
+        if results:
+            return cls(results[0])
+        else:
+            return False
+
+    @classmethod
     def create(cls, data):
         query = """
         INSERT INTO users(first_name, last_name, email) VALUES (%(first_name)s, %(last_name)s, %(email)s)
+        """
+        return connectToMySQL('users_schema').query_db(query, data)
+    
+    @classmethod
+    def update(cls, data):
+        query = """
+        UPDATE users SET first_name = %(first_name)s, last_name = %(last_name)s, email = %(email)s 
+        WHERE id = %(id)s;
+        """
+        return connectToMySQL('users_schema').query_db(query, data)
+
+    @classmethod
+    def delete(cls, data):
+        query = """
+        DELETE FROM users WHERE id = %(id)s;
         """
         return connectToMySQL('users_schema').query_db(query, data)

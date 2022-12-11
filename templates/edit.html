@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Read (All)</title>
+    <title>Edit</title>
     <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
@@ -12,7 +12,7 @@
     <div class="container">
         <div class="row">
             <div class="column col-8">
-                <h1>Add a New User</h1>
+                <h1>Edit User {{one_user.id}}</h1>
             </div>
             <div class="column col-4">
                 <a href="/users">Home</a>
@@ -20,20 +20,21 @@
         </div>
         <div class="row">
             <div class="col col-8">
-                <form action="/users/create" method="post">
+                <form action="/users/{{one_user.id}}/update" method="post">
                     <div class="mb-3">
                         <label for="first_name" class="form-label">First Name:</label>
-                        <input type="text" class="form-control" name="first_name" id="first_name">
+                        <input type="text" class="form-control" name="first_name" id="first_name" value="{{one_user.first_name}}">
                     </div>
                     <div class="mb-3">
                         <label for="last_name" class="form-label">Last Name:</label>
-                        <input type="text" class="form-control" name="last_name" id="last_name">
+                        <input type="text" class="form-control" name="last_name" id="last_name" value="{{one_user.last_name}}">
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email:</label>
-                        <input type="email" class="form-control" name="email" id="email">
+                        <input type="email" class="form-control" name="email" id="email" value="{{one_user.email}}">
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <a href="/users/{{one_user.id}}">Show User</a>
                 </form>
             </div>
         </div>
